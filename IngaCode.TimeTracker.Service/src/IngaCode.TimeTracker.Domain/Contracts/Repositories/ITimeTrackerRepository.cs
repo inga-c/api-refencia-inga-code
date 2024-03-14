@@ -3,9 +3,9 @@ using IngaCode.TimeTracker.Domain.Queries.TimeTrackers;
 
 namespace IngaCode.TimeTracker.Domain.Contracts.Repositories
 {
-    public interface ITimeTrackerRepository
+    public interface ITimeTrackerRepository : IDisposable
     {
-        Task<TimeTrackerEntity> CreateTimeTracker(TimeTrackerEntity timeTracker);
+        Task<TimeTrackerEntity> CreateTimeTrackerAsync(TimeTrackerEntity timeTracker, CancellationToken cancellationToken);
 
         Task DeleteTimeTracker(TimeTrackerEntity timeTracker);
 
