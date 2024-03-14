@@ -1,0 +1,11 @@
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\bin\Debug\net6.0\IngaCode.TimeTracker.Domain.deps.json
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\bin\Debug\net6.0\IngaCode.TimeTracker.Domain.dll
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\bin\Debug\net6.0\IngaCode.TimeTracker.Domain.pdb
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\IngaCode.TimeTracker.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\IngaCode.TimeTracker.Domain.AssemblyInfoInputs.cache
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\IngaCode.TimeTracker.Domain.AssemblyInfo.cs
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\IngaCode.TimeTracker.Domain.csproj.CoreCompileInputs.cache
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\IngaCode.TimeTracker.Domain.dll
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\refint\IngaCode.TimeTracker.Domain.dll
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\IngaCode.TimeTracker.Domain.pdb
+D:\IngaCode.TimeTracker.Service\src\IngaCode.TimeTracker.Domain\obj\Debug\net6.0\ref\IngaCode.TimeTracker.Domain.dll
