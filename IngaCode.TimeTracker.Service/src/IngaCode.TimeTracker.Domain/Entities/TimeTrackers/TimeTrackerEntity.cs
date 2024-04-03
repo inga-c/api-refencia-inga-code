@@ -1,8 +1,9 @@
-﻿namespace IngaCode.TimeTracker.Domain.Entities.TimeTrackers
+﻿using IngaCode.TimeTracker.Domain.Entities.Commons;
+
+namespace IngaCode.TimeTracker.Domain.Entities.TimeTrackers
 {
-    public class TimeTrackerEntity
+    public class TimeTrackerEntity : BaseEntity
     {
-        public Guid Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string TimeZoneId { get; set; }

@@ -7,12 +7,12 @@ namespace IngaCode.TimeTracker.Domain.Contracts.Repositories
     {
         Task<TimeTrackerEntity> CreateTimeTrackerAsync(TimeTrackerEntity timeTracker, CancellationToken cancellationToken);
 
-        Task DeleteTimeTracker(TimeTrackerEntity timeTracker);
+        Task DeleteTimeTrackerAsync(TimeTrackerEntity timeTracker, CancellationToken cancellationToken);
 
-        Task<TimeTrackerEntity?> GetTimeTrackerById(Guid timeTrackerId);
+        Task<TimeTrackerEntity?> GetTimeTrackerByIdAsync(Guid timeTrackerId, CancellationToken cancellationToken);
 
-        Task<TimeTrackerEntity[]> GetTimeTrackers(TimeTrackerQuery timeTrackerQuery);
+        Task<TimeTrackerEntity[]> GetTimeTrackersAsync(TimeTrackerQuery timeTrackerQuery, CancellationToken cancellationToken);
 
-        Task UpdateTimeTracker(TimeTrackerEntity timeTracker);
+        Task UpdateTimeTrackerAsync(TimeTrackerEntity timeTracker, CancellationToken cancellationToken);
     }
 }
