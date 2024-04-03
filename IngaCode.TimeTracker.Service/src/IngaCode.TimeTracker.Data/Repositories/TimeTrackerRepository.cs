@@ -1,4 +1,5 @@
 ﻿using IngaCode.TimeTracker.Data.Contexts;
+using IngaCode.TimeTracker.Domain.Contracts.Factories.TimeTrackers;
 using IngaCode.TimeTracker.Domain.Contracts.Repositories;
 using IngaCode.TimeTracker.Domain.Entities.TimeTrackers;
 using IngaCode.TimeTracker.Domain.Queries.TimeTrackers;
@@ -11,15 +12,18 @@ namespace IngaCode.TimeTracker.Data.Repositories
     {
         private readonly ILogger<TimeTrackerRepository> _logger;
         private readonly TimeTrackerContext _context;
+        private readonly ITimeTrackerFilterFactory _timeTrackerFilterFactory;
 
         public TimeTrackerRepository
         (
             ILogger<TimeTrackerRepository> logger,
-            TimeTrackerContext context
+            TimeTrackerContext context,
+            ITimeTrackerFilterFactory timeTrackerFilterFactory
         )
         {
             _logger = logger;
             _context = context;
+            _timeTrackerFilterFactory = timeTrackerFilterFactory;
         }
 
         public void Dispose()
@@ -85,48 +89,11 @@ namespace IngaCode.TimeTracker.Data.Repositories
             try
             {
                 var queryable = _context.TimeTrackers.AsQueryable();
+                var timeTrackerFiltered = _timeTrackerFilterFactory
+                    .Create(queryable, timeTrackerQuery)
+                    .Filter();
 
-                if (timeTrackerQuery.Id is not null)
-                {
-                    queryable = queryable.Where(x => x.Id == timeTrackerQuery.Id);
-                }
-
-                if (timeTrackerQuery.StartDate is not null)
-                {
-                    queryable = queryable.Where(x => x.StartDate == timeTrackerQuery.StartDate);
-                }
-
-                if (timeTrackerQuery.EndDate is not null)
-                {
-                    queryable = queryable.Where(x => x.StartDate == timeTrackerQuery.EndDate);
-                }
-
-                if (timeTrackerQuery.TimeZoneId is not null)
-                {
-                    queryable = queryable.Where(x => x.TimeZoneId == timeTrackerQuery.TimeZoneId);
-                }
-
-                if (timeTrackerQuery.TaskId is not null)
-                {
-                    queryable = queryable.Where(x => x.TaskId == timeTrackerQuery.TaskId);
-                }
-
-                if (timeTrackerQuery.ProjectId is not null)
-                {
-                    queryable = queryable.Where(x => x.ProjectId == timeTrackerQuery.ProjectId);
-                }
-
-                if (timeTrackerQuery.CollaboratorId is not null)
-                {
-                    queryable = queryable.Where(x => x.CollaboratorId == timeTrackerQuery.CollaboratorId);
-                }
-
-                if (timeTrackerQuery.WorkspaceId is not null)
-                {
-                    queryable = queryable.Where(x => x.WorkspaceId == timeTrackerQuery.WorkspaceId);
-                }
-
-                return queryable.ToArrayAsync(cancellationToken);
+                return timeTrackerFiltered.ToArrayAsync(cancellationToken);
             }
             catch (Exception ex)
             {
