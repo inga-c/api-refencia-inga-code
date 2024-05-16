@@ -2,7 +2,7 @@
 
 namespace IngaCode.TimeTracker.Domain.Contracts.Services
 {
-    public interface ITimeTrackerService
+    public interface ITimeTrackerService : IDisposable
     {
         Task<TimeTrackerDto> CreateTimeTracker(CreationTimeTrackerDto timeTracker);
 

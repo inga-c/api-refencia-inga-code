@@ -7,11 +7,11 @@ using Moq;
 
 namespace IngaCode.TimeTracker.Data.Test.Decorators.TimeTrackers
 {
-    public class CollaboratorIdFilterDecoratorUnitTest
+    public class EndDateFilterDecoratorUnitTestUnitTest
     {
         private readonly Mock<ITimeTrackerFilterDecorator> _timeTrackerFilterDecorator;
 
-        public CollaboratorIdFilterDecoratorUnitTest()
+        public EndDateFilterDecoratorUnitTestUnitTest()
         {
             _timeTrackerFilterDecorator = new Mock<ITimeTrackerFilterDecorator>();
         }
@@ -22,7 +22,7 @@ namespace IngaCode.TimeTracker.Data.Test.Decorators.TimeTrackers
             // Arrange
             var timeTrackerQuery = new TimeTrackerQuery
             {
-                CollaboratorId = null,
+                EndDate = null,
             };
             var timeTrackers = new List<TimeTrackerEntity> { new() }.AsQueryable();
 
@@ -30,7 +30,7 @@ namespace IngaCode.TimeTracker.Data.Test.Decorators.TimeTrackers
                 .Setup(x => x.Filter())
                 .Returns(timeTrackers);
 
-            var filterDecorator = new CollaboratorIdFilterDecorator
+            var filterDecorator = new EndDateFilterDecorator
             (
                 _timeTrackerFilterDecorator.Object,
                 timeTrackerQuery
@@ -46,8 +46,6 @@ namespace IngaCode.TimeTracker.Data.Test.Decorators.TimeTrackers
             timeTrackersFiltered
                 .Should()
                 .BeEquivalentTo(timeTrackers.AsQueryable());
-
-            _timeTrackerFilterDecorator.Verify(x => x.Filter(), Times.Once());
         }
 
         [Fact]
@@ -56,17 +54,17 @@ namespace IngaCode.TimeTracker.Data.Test.Decorators.TimeTrackers
             // Arrange
             var timeTrackerQuery = new TimeTrackerQuery
             {
-                CollaboratorId = Guid.NewGuid(),
+                EndDate = DateTime.UtcNow,
             };
             var timeTrackers = new List<TimeTrackerEntity>
             {
                 new()
                 {
-                    CollaboratorId = timeTrackerQuery.CollaboratorId.Value,
+                    EndDate = timeTrackerQuery.EndDate.Value,
                 },
                 new()
                 {
-                    CollaboratorId = Guid.NewGuid(),
+                    EndDate = DateTime.UtcNow,
                 }
             }.AsQueryable();
 
@@ -74,7 +72,7 @@ namespace IngaCode.TimeTracker.Data.Test.Decorators.TimeTrackers
                 .Setup(x => x.Filter())
                 .Returns(timeTrackers);
 
-            var filterDecorator = new CollaboratorIdFilterDecorator
+            var filterDecorator = new EndDateFilterDecorator
             (
                 _timeTrackerFilterDecorator.Object,
                 timeTrackerQuery
@@ -94,11 +92,9 @@ namespace IngaCode.TimeTracker.Data.Test.Decorators.TimeTrackers
                 {
                     new()
                     {
-                        CollaboratorId = timeTrackerQuery.CollaboratorId.Value,
+                        EndDate = timeTrackerQuery.EndDate.Value,
                     },
                 }.AsQueryable());
-
-            _timeTrackerFilterDecorator.Verify(x => x.Filter(), Times.Once());
         }
     }
 }

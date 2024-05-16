@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IngaCode.TimeTracker.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IngaCode.TimeTracker.Data", "src\IngaCode.TimeTracker.Data\IngaCode.TimeTracker.Data.csproj", "{87B0E58C-EA31-4488-AE53-C5702745C5BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngaCode.TimeTracker.Data.Test", "test\IngaCode.TimeTracker.Data.Test\IngaCode.TimeTracker.Data.Test.csproj", "{A99DAEC7-8D5F-4EE6-AD27-8CF801E5C47D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IngaCode.TimeTracker.Data.Test", "test\IngaCode.TimeTracker.Data.Test\IngaCode.TimeTracker.Data.Test.csproj", "{A99DAEC7-8D5F-4EE6-AD27-8CF801E5C47D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngaCode.TimeTracker.Application", "src\IngaCode.TimeTracker.Application\IngaCode.TimeTracker.Application.csproj", "{36220387-F683-48AF-B17F-3C3114ABC720}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A99DAEC7-8D5F-4EE6-AD27-8CF801E5C47D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A99DAEC7-8D5F-4EE6-AD27-8CF801E5C47D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A99DAEC7-8D5F-4EE6-AD27-8CF801E5C47D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36220387-F683-48AF-B17F-3C3114ABC720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36220387-F683-48AF-B17F-3C3114ABC720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36220387-F683-48AF-B17F-3C3114ABC720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36220387-F683-48AF-B17F-3C3114ABC720}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{0DE0E1B2-687E-4E97-BB2E-AFC7C277A055} = {6996D46C-0313-41E5-AC9A-9CB240EF40F4}
 		{87B0E58C-EA31-4488-AE53-C5702745C5BA} = {74988B4A-9944-4B87-B8FB-E926A68E8C5B}
 		{A99DAEC7-8D5F-4EE6-AD27-8CF801E5C47D} = {ECDFDB4B-6481-4DD3-A51E-56375245C480}
+		{36220387-F683-48AF-B17F-3C3114ABC720} = {41D25C49-F34B-4881-A968-928370F1A168}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F35F02F-58ED-4791-A3EA-2EDE6A19C1BF}
