@@ -4,14 +4,14 @@ namespace IngaCode.TimeTracker.Domain.Contracts.Services
 {
     public interface ITimeTrackerService : IDisposable
     {
-        Task<TimeTrackerDto> CreateTimeTracker(CreationTimeTrackerDto timeTracker);
+        Task<TimeTrackerDto> CreateTimeTrackerAsync(CreationTimeTrackerDto timeTracker, CancellationToken cancellationToken);
 
-        Task DeleteTimeTracker(Guid timeTrackerId);
+        Task DeleteTimeTrackerAsync(Guid timeTrackerId, CancellationToken cancellationToken);
 
-        Task<TimeTrackerDto[]> GetTimeTrackersByQuery(TimeTrackerFilterDto timeTrackerQuery);
+        Task<TimeTrackerDto[]> GetTimeTrackersByQueryAsync(TimeTrackerFilterDto timeTrackerQuery, CancellationToken cancellationToken);
 
-        Task UpdateEndDateTimeTracker(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker);
+        Task UpdateEndDateTimeTrackerAsync(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker, CancellationToken cancellationToken);
 
-        Task UpdateTimeTracker(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker);
+        Task UpdateTimeTrackerAsync(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker, CancellationToken cancellationToken);
     }
 }

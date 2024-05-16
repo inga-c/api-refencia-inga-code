@@ -29,6 +29,7 @@ namespace IngaCode.TimeTracker.Data.Repositories
         public void Dispose()
         {
             _context.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public async Task<TimeTrackerEntity> CreateTimeTrackerAsync
