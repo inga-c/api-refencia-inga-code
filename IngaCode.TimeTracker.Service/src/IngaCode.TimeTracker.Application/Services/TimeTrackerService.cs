@@ -4,6 +4,7 @@ using IngaCode.TimeTracker.Domain.Contracts.Repositories;
 using IngaCode.TimeTracker.Domain.Contracts.Services;
 using IngaCode.TimeTracker.Domain.Dtos.TimeTrackers;
 using IngaCode.TimeTracker.Domain.Entities.TimeTrackers;
+using IngaCode.TimeTracker.Domain.Queries.TimeTrackers;
 using IngaCode.TimeTracker.Domain.Resources;
 using Microsoft.Extensions.Logging;
 using TimeZoneConverter;
@@ -14,7 +15,8 @@ namespace IngaCode.TimeTracker.Application.Services
     (
         ILogger<TimeTrackerService> logger,
         ITimeTrackerRepository repository,
-        IValidator<CreationTimeTrackerDto> createTimeTrackerValidator
+        IValidator<CreationTimeTrackerDto> createTimeTrackerValidator,
+        IValidator<UpdateTimeTrackerDto> updateTimeTrackerValidator
     ) : ITimeTrackerService
     {
         public void Dispose()
@@ -65,24 +67,117 @@ namespace IngaCode.TimeTracker.Application.Services
             }
         }
 
-        public Task DeleteTimeTrackerAsync(Guid timeTrackerId, CancellationToken cancellationToken)
+        public async Task DeleteTimeTrackerAsync(Guid timeTrackerId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var timeTrackerEntity = await repository.GetTimeTrackerByIdAsync(timeTrackerId, cancellationToken)
+                    ?? throw new TimeTrackerException(string.Format(SystemMessage.ERR003, timeTrackerId), nameof(SystemMessage.ERR003));
+
+                await repository.DeleteTimeTrackerAsync(timeTrackerEntity, cancellationToken);
+            }
+            catch (TimeTrackerException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, SystemMessage.ERR002);
+                throw new TimeTrackerException(ex, SystemMessage.ERR002, nameof(SystemMessage.ERR002));
+            }
         }
 
-        public Task<TimeTrackerDto[]> GetTimeTrackersByQueryAsync(TimeTrackerFilterDto timeTrackerQuery, CancellationToken cancellationToken)
+        public async Task<TimeTrackerDto[]> GetTimeTrackersByQueryAsync(TimeTrackerFilterDto timeTrackerQuery, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var timeTrackerEntityQuery = new TimeTrackerQuery
+                {
+                    StartDate = timeTrackerQuery.StartDate,
+                    TimeZoneId = timeTrackerQuery.TimeZoneId,
+                };
+
+                var timeTrackerEntities = await repository.GetTimeTrackersAsync(timeTrackerEntityQuery, cancellationToken);
+
+                if (timeTrackerEntities.Length != 0)
+                {
+                    return [.. timeTrackerEntities.Select(p => new TimeTrackerDto
+                    {
+                        Id = p.Id,
+                        CollaboratorId = p.CollaboratorId,
+                        EndDate = p.EndDate,
+                        ProjectId = p.ProjectId,
+                        StartDate = p.StartDate,
+                        EndTime = ToTimeSpanFromDateTime(p.EndDate, p.TimeZoneId),
+                        StartTime = ToTimeSpanFromDateTime(p.StartDate, p.TimeZoneId) ?? new TimeSpan(),
+                        TaskId = p.TaskId,
+                        TimeZoneId = p.TimeZoneId
+                    })
+                    .OrderBy(x => x.StartDate)];
+                }
+
+                return [];
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, SystemMessage.ERR004);
+                throw new TimeTrackerException(ex, SystemMessage.ERR004, nameof(SystemMessage.ERR004));
+            }
         }
 
-        public Task UpdateEndDateTimeTrackerAsync(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker, CancellationToken cancellationToken)
+        public async Task UpdateEndDateTimeTrackerAsync(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var timeTrackerEntity = await repository.GetTimeTrackerByIdAsync(timeTrackerId, cancellationToken)
+                    ?? throw new TimeTrackerException(string.Format(SystemMessage.ERR004, timeTrackerId), nameof(SystemMessage.ERR004));
+
+                timeTrackerEntity.EndDate = ToDateTimeFromTimeSpan(timeTracker.EndTime, timeTracker.TimeZoneId);
+
+                await repository.UpdateTimeTrackerAsync(timeTrackerEntity, cancellationToken);
+            }
+            catch (TimeTrackerException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, SystemMessage.ERR005);
+                throw new TimeTrackerException(ex, SystemMessage.ERR005, nameof(SystemMessage.ERR005));
+            }
         }
 
-        public Task UpdateTimeTrackerAsync(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker, CancellationToken cancellationToken)
+        public async Task UpdateTimeTrackerAsync(Guid timeTrackerId, UpdateTimeTrackerDto timeTracker, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                timeTracker.Id = timeTrackerId;
+
+                updateTimeTrackerValidator.ValidateAndThrow(timeTracker);
+
+                var timeTrackerEntity = await repository.GetTimeTrackerByIdAsync(timeTrackerId, cancellationToken)
+                    ?? throw new TimeTrackerException(string.Format(SystemMessage.ERR004, timeTrackerId), nameof(SystemMessage.ERR004));
+
+                timeTrackerEntity.EndDate = ToDateTimeFromTimeSpan(timeTracker.EndTime, timeTracker.TimeZoneId);
+                timeTrackerEntity.StartDate = ToDateTimeFromTimeSpan(timeTracker.StartTime, timeTracker.TimeZoneId) ?? DateTime.UtcNow;
+                timeTrackerEntity.ProjectId = timeTracker.ProjectId;
+                timeTrackerEntity.TaskId = timeTracker.TaskId;
+
+                await repository.UpdateTimeTrackerAsync(timeTrackerEntity, cancellationToken);
+            }
+            catch (TimeTrackerException)
+            {
+                throw;
+            }
+            catch (ValidationException ex)
+            {
+                throw new DtoValidationException(ex);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, SystemMessage.ERR005);
+                throw new TimeTrackerException(ex, SystemMessage.ERR005, nameof(SystemMessage.ERR005));
+            }
         }
 
         private static DateTime? ToDateTimeFromTimeSpan(TimeSpan? timeSpan, string timeZoneId)

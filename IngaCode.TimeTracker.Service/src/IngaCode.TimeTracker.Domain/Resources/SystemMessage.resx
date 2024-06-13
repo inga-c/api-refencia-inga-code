@@ -120,4 +120,16 @@
   <data name="ERR001" xml:space="preserve">
     <value>Time Tracker creation service failure.</value>
   </data>
+  <data name="ERR002" xml:space="preserve">
+    <value>Time Tracker deletion service failure.</value>
+  </data>
+  <data name="ERR003" xml:space="preserve">
+    <value>Query for Time Tracker Id {0} failed.</value>
+  </data>
+  <data name="ERR004" xml:space="preserve">
+    <value>Time Tracker query service failure.</value>
+  </data>
+  <data name="ERR005" xml:space="preserve">
+    <value>Time Tracker update service failed.</value>
+  </data>
 </root>

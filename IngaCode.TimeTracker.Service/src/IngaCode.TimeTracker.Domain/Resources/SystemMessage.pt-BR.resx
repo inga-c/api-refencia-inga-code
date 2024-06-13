@@ -120,4 +120,16 @@
   <data name="ERR001" xml:space="preserve">
     <value>Falha no serviço de criação do Time Tracker</value>
   </data>
+  <data name="ERR002" xml:space="preserve">
+    <value>Falha no serviço de exclusão de Time Tracker</value>
+  </data>
+  <data name="ERR003" xml:space="preserve">
+    <value>Falha na consulta do Time Tracker Id {0}.</value>
+  </data>
+  <data name="ERR004" xml:space="preserve">
+    <value>Falha no serviço de consulta de Time Tracker.</value>
+  </data>
+  <data name="ERR005" xml:space="preserve">
+    <value>Falha no serviço de atualização de Time Tracker.</value>
+  </data>
 </root>
