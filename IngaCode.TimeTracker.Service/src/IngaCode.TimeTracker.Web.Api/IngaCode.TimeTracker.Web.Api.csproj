@@ -23,4 +23,10 @@
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IngaCode.TimeTracker.Application\IngaCode.TimeTracker.Application.csproj" />
+    <ProjectReference Include="..\IngaCode.TimeTracker.Data\IngaCode.TimeTracker.Data.csproj" />
+    <ProjectReference Include="..\IngaCode.TimeTracker.Domain\IngaCode.TimeTracker.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
